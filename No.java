@@ -34,5 +34,4 @@ public class No {
     public void setInfo(int info) {
         this.info = info;
     }
-    
 }

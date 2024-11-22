@@ -21,13 +21,13 @@ public class lista {
     }
 
     public void insereAuxiliar(int info, No raiz){
-        No novo = new No();
-        System.out.println("1");
+        No novo = new No(info);
         if(raiz.getInfo() < novo.getInfo()){
-            System.out.println("ola");
             if(raiz.getProxDir() == null){
                 raiz.setProxDir(novo);
                 return;
+            }else{
+                insereAuxiliar(info, raiz.getProxDir());
             }
         }
         
@@ -35,6 +35,8 @@ public class lista {
             if(raiz.getProxEsq() == null){
                 raiz.setProxEsq(novo);
                 return;
+            }else{
+                insereAuxiliar(info, raiz.getProxEsq());
             }
         }
     }
@@ -45,22 +47,22 @@ public class lista {
             this.raiz = novo;
             return;
         }
-        if(raiz.getInfo() < info){
-            raiz.setProxDir(novo);
-            return;
-        }     
-        if(raiz.getInfo() > info){
-            raiz.setProxEsq(novo);
-            return;
-        }
-        if(raiz.getProxDir() != null){
-            System.out.println("1");
-            insereAuxiliar(info, raiz.getProxDir());
-            return;
-        }
-        if(raiz.getProxDir() != null){
-            insereAuxiliar(info, raiz.getProxEsq());
-            return;
+
+        if(raiz.getInfo() < novo.getInfo()){
+            if(raiz.getProxDir() == null){
+                raiz.setProxDir(novo);
+                return;
+            }else{
+                insereAuxiliar(info, raiz.getProxEsq());
+            }
+        }    
+        if(raiz.getInfo() > novo.getInfo()){
+            if(raiz.getProxEsq() == null){
+                raiz.setProxEsq(novo);
+                return;
+            }else{
+                insereAuxiliar(info, raiz.getProxDir());
+            }
         }
         
     }

@@ -20,26 +20,7 @@ public class lista {
         return this.raiz == null;
     }
 
-    public void insereAuxiliar(int info, No raiz){
-        No novo = new No(info);
-        if(raiz.getInfo() < novo.getInfo()){
-            if(raiz.getProxDir() == null){
-                raiz.setProxDir(novo);
-                return;
-            }else{
-                insereAuxiliar(info, raiz.getProxDir());
-            }
-        }
-        
-        if(raiz.getInfo() > novo.getInfo()){
-            if(raiz.getProxEsq() == null){
-                raiz.setProxEsq(novo);
-                return;
-            }else{
-                insereAuxiliar(info, raiz.getProxEsq());
-            }
-        }
-    }
+    
 
     public void insere(int info){
         No novo = new No(info);
@@ -48,23 +29,41 @@ public class lista {
             return;
         }
 
-        if(raiz.getInfo() < novo.getInfo()){
-            if(raiz.getProxDir() == null){
-                raiz.setProxDir(novo);
-                return;
-            }else{
+        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() == null){
+            raiz.setProxDir(novo);
+            return;
+        }
+        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() != null){
+            insereAuxiliar(info, raiz.getProxDir());
+        }   
+        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() == null){
+            raiz.setProxEsq(novo);
+            return;
+        }
+        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() != null){
                 insereAuxiliar(info, raiz.getProxEsq());
             }
-        }    
-        if(raiz.getInfo() > novo.getInfo()){
-            if(raiz.getProxEsq() == null){
-                raiz.setProxEsq(novo);
-                return;
-            }else{
-                insereAuxiliar(info, raiz.getProxDir());
-            }
+    }   
+        
+    public void insereAuxiliar(int info, No raiz){
+        No novo = new No(info);
+               
+        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() != null){
+            insereAuxiliar(info, raiz.getProxDir());
         }
         
+        if(raiz.getInfo() < novo.getInfo() && raiz.getProxEsq() == null){
+            raiz.setProxDir(novo);
+            return;
+        }
+        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() != null){
+            insereAuxiliar(info, raiz.getProxEsq());
+        }
+
+        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() == null){
+            raiz.setProxEsq(novo);
+            return;
+        }
     }
 
     public void PreOrdem(No raiz){

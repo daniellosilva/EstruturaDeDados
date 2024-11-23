@@ -10,6 +10,10 @@ public class Main {
         l1.insere(12);
         l1.insere(10);
         l1.insere(5);
-        l1.PreOrdem(l1.getRaiz());
+        l1.EmOrdem(l1.getRaiz());
+
+
+        l1.buscar(20);
+        }
     }
-}
+

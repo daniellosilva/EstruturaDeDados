@@ -28,43 +28,53 @@ public class lista {
             this.raiz = novo;
             return;
         }
-
-        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() == null){
-            raiz.setProxDir(novo);
-            return;
-        }
-        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() != null){
-            insereAuxiliar(info, raiz.getProxDir());
-        }   
-        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() == null){
-            raiz.setProxEsq(novo);
-            return;
-        }
-        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() != null){
-                insereAuxiliar(info, raiz.getProxEsq());
-            }
+        insereAuxiliar(info, raiz);
     }   
         
     public void insereAuxiliar(int info, No raiz){
         No novo = new No(info);
                
-        if(raiz.getInfo() < novo.getInfo() && raiz.getProxDir() != null){
-            insereAuxiliar(info, raiz.getProxDir());
+        if(raiz.getInfo() < novo.getInfo()){
+            if(raiz.getProxDir() == null){
+                raiz.setProxDir(novo);
+            }
+            else{
+                insereAuxiliar(info, raiz.getProxDir());
+            }
+        }else{
+            if(raiz.getInfo() > novo.getInfo()){
+                if(raiz.getProxEsq() == null){
+                    raiz.setProxEsq(novo);
+                }
+                else{
+                    insereAuxiliar(info, raiz.getProxEsq());
+                }
+            }
         }
         
-        if(raiz.getInfo() < novo.getInfo() && raiz.getProxEsq() == null){
-            raiz.setProxDir(novo);
-            return;
-        }
-        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() != null){
-            insereAuxiliar(info, raiz.getProxEsq());
-        }
-
-        if(raiz.getInfo() > novo.getInfo() && raiz.getProxEsq() == null){
-            raiz.setProxEsq(novo);
-            return;
-        }
     }
+
+    public No buscar(int info){
+        if(raiz == null){
+            System.out.println("null");
+            return null;
+        }
+        return buscar(info, raiz);
+    }
+
+    private No buscar(int info, No raiz){
+        if(info == raiz.getInfo()){
+            return raiz;
+        }else{
+            if(info > raiz.getInfo()){
+                return buscar(info, raiz.getProxDir());
+            }else{
+                return buscar(info, raiz.getProxEsq());
+            }
+        }
+        
+    }
+
 
     public void PreOrdem(No raiz){
         if(raiz == null){

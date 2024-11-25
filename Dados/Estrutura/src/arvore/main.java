@@ -11,6 +11,11 @@ public class main {
         l1.insere(10);
         l1.insere(5);
         l1.EmOrdem(l1.getRaiz());
+        if(l1.buscar(12) == null) {
+            System.out.println("nó não existe");
+        }else{
+            System.out.println("nós encontrado: " + l1.buscar(12).getInfo());
+        }
     }
 }
 

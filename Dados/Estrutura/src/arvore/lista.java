@@ -20,8 +20,6 @@ public class lista {
         return this.raiz == null;
     }
 
-    
-
     public void insere(int info){
         No novo = new No(info);
         if(ArvoreVazia()){
@@ -55,14 +53,13 @@ public class lista {
     }
 
     public No buscar(int info){
-        if(raiz == null){
-            System.out.println("null");
-            return null;
-        }
         return buscar(info, raiz);
     }
 
     private No buscar(int info, No raiz){
+        if(raiz == null){
+            return null;
+        }
         if(info == raiz.getInfo()){
             return raiz;
         }else{
@@ -72,7 +69,6 @@ public class lista {
                 return buscar(info, raiz.getProxEsq());
             }
         }
-        
     }
 
 

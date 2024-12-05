@@ -16,7 +16,7 @@ public class main {
         //}else{
         //    System.out.println("nó encontrado: " + l1.buscar(12).getInfo());
         //}
-        l1.sucessor(11);
+        l1.sucessor(10);
     }
 }
 

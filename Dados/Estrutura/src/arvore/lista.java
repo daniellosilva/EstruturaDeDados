@@ -49,7 +49,6 @@ public class lista {
                 }
             }
         }
-        
     }
 
     public No buscar(int info){
@@ -75,19 +74,36 @@ public class lista {
     }
 
     public void sucessor(int info){
-        if(buscar(info) == null) {
+        No numeroB = buscar(info);
+        if(numeroB == null) {
             System.out.println("nó não existe");
             return;
         }
-        sucessor(buscar(info).getProxDir());
+        if(numeroB.getProxDir() == null){
+            if(numeroB.getInfo() < raiz.getInfo()){
+                sucessor(raiz.getProxEsq(), info);
+                return;
+            }
+            sucessor(raiz.getProxDir(), info);
+            return;
+        
+        }
+        sucessor(numeroB.getProxDir(), info);
+        return;
     }
 
-    private void sucessor(No raiz){
+    private void sucessor(No raiz, int info){
+        No numeroB = buscar(info);
+        if(raiz.getProxEsq() == numeroB){
+            System.out.println("sucessor sem proximo: " + raiz.getInfo());
+            return;
+        }
         if(raiz.getProxEsq() == null){
             System.out.println("sucessor: " + raiz.getInfo());
             return;
         }
-        sucessor(raiz.getProxEsq());
+        sucessor(raiz.getProxEsq(), info);
+        return;
     }
 
     public void PreOrdem(){

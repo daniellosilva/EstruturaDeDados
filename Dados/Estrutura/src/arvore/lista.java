@@ -26,10 +26,10 @@ public class lista {
             this.raiz = novo;
             return;
         }
-        insereAuxiliar(info, raiz);
+        insere(info, raiz);
     }   
         
-    public void insereAuxiliar(int info, No raiz){
+    private void insere(int info, No raiz){
         No novo = new No(info);
                
         if(raiz.getInfo() < novo.getInfo()){
@@ -37,7 +37,7 @@ public class lista {
                 raiz.setProxDir(novo);
             }
             else{
-                insereAuxiliar(info, raiz.getProxDir());
+                insere(info, raiz.getProxDir());
             }
         }else{
             if(raiz.getInfo() > novo.getInfo()){
@@ -45,7 +45,7 @@ public class lista {
                     raiz.setProxEsq(novo);
                 }
                 else{
-                    insereAuxiliar(info, raiz.getProxEsq());
+                    insere(info, raiz.getProxEsq());
                 }
             }
         }
@@ -53,6 +53,9 @@ public class lista {
     }
 
     public No buscar(int info){
+        if(raiz == null){
+            return null;
+        }
         return buscar(info, raiz);
     }
 
@@ -71,8 +74,30 @@ public class lista {
         }
     }
 
+    public void sucessor(int info){
+        if(buscar(info) == null) {
+            System.out.println("nó não existe");
+            return;
+        }
+        sucessor(buscar(info).getProxDir());
+    }
 
-    public void PreOrdem(No raiz){
+    private void sucessor(No raiz){
+        if(raiz.getProxEsq() == null){
+            System.out.println("sucessor: " + raiz.getInfo());
+            return;
+        }
+        sucessor(raiz.getProxEsq());
+    }
+
+    public void PreOrdem(){
+        if(raiz == null){
+            System.out.println("arvore vazia");  
+        }
+        PreOrdem(raiz);
+    }
+
+    private void PreOrdem(No raiz){
         if(raiz == null){
             return;
         }
@@ -82,7 +107,11 @@ public class lista {
         return;
     }
 
-    public void EmOrdem(No raiz){
+    public void EmOrdem(){
+        EmOrdem(raiz);
+    }
+
+    private void EmOrdem(No raiz){
         if(raiz == null){
             return;
         }
@@ -92,7 +121,13 @@ public class lista {
         return;
     }
 
-    public void PosOrdem(No raiz){
+    public void PosOrdem(){
+        if(this.raiz == null){
+            System.out.println("arvore vazia");
+        }PosOrdem(raiz);
+    }
+
+    private void PosOrdem(No raiz){
         if(raiz == null){
             return;
         }

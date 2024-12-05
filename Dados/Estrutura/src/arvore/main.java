@@ -16,7 +16,8 @@ public class main {
         //}else{
         //    System.out.println("nó encontrado: " + l1.buscar(12).getInfo());
         //}
-        l1.sucessor(10);
+        l1.sucessor(9);
+        System.out.println("maximo: " + l1.maximo().getInfo());
     }
 }
 

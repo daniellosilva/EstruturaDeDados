@@ -73,10 +73,26 @@ public class lista {
         }
     }
 
+    public No maximo(){
+        return maximo(raiz);
+    }
+
+    private No maximo(No raiz){
+        if(raiz.getProxDir() == null){
+            return raiz;
+        }
+        return maximo(raiz.getProxDir());
+    }
+
     public void sucessor(int info){
         No numeroB = buscar(info);
+       
         if(numeroB == null) {
             System.out.println("nó não existe");
+            return;
+        }
+        if(numeroB == maximo(raiz.getProxEsq())){
+            System.out.println("sucessor: " + raiz.getInfo());
             return;
         }
         if(numeroB.getProxDir() == null){
@@ -86,10 +102,7 @@ public class lista {
             }
             sucessor(raiz.getProxDir(), info);
             return;
-        
         }
-        sucessor(numeroB.getProxDir(), info);
-        return;
     }
 
     private void sucessor(No raiz, int info){
@@ -102,6 +115,7 @@ public class lista {
             System.out.println("sucessor: " + raiz.getInfo());
             return;
         }
+        
         sucessor(raiz.getProxEsq(), info);
         return;
     }

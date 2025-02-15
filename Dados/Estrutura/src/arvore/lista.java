@@ -51,6 +51,25 @@ public class lista {
         }
     }
 
+    private void remover(int info){
+        if(raiz.getInfo() == info){
+            return;
+        }
+        //if(raiz.getProxDir().getProxDir() == null || raiz.getProxDir().getProxEsq() == null || raiz.getProxEsq().getProxEsq() == null || raiz.getProxEsq().getProxDir() == null){
+          //  raiz.s
+        //}
+
+        if(raiz.getProxDir().getInfo() == info){
+            if(raiz.getProxDir().getProxEsq() == null || raiz.getProxDir().getProxDir() == null){
+                raiz.setProxDir(null);
+            }
+        }else{
+            if(raiz.getProxEsq().getProxEsq() == null || raiz.getProxEsq().getProxDir() == null){
+                raiz.setProxEsq(null);
+            }
+        }
+    }
+
     public No buscar(int info){
         if(raiz == null){
             return null;

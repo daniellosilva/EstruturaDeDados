@@ -50,24 +50,44 @@ public class lista {
             }
         }
     }
-
-    private void remover(int info){
+    public void remover(int info){
         if(raiz.getInfo() == info){
             return;
         }
-        //if(raiz.getProxDir().getProxDir() == null || raiz.getProxDir().getProxEsq() == null || raiz.getProxEsq().getProxEsq() == null || raiz.getProxEsq().getProxDir() == null){
-          //  raiz.s
-        //}
 
-        if(raiz.getProxDir().getInfo() == info){
-            if(raiz.getProxDir().getProxEsq() == null || raiz.getProxDir().getProxDir() == null){
-                raiz.setProxDir(null);
-            }
-        }else{
-            if(raiz.getProxEsq().getProxEsq() == null || raiz.getProxEsq().getProxDir() == null){
-                raiz.setProxEsq(null);
+        if(raiz.getInfo() > info){
+            remover(raiz.getProxEsq(), info);
+            return;
+        }
+        remover(raiz.getProxDir(), info);
+        return;
+    }
+
+    private void remover(No raiz, int info){
+        if(raiz.getInfo() == info){
+            return;
+        }
+        if(raiz.getInfo() > info){
+            if(raiz.getProxEsq().getInfo() == info){
+                if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
+                    raiz.setProxEsq(null);
+                    return;
+                }
+            }else{
+                remover(raiz.getProxEsq(), info);
             }
         }
+        if(raiz.getInfo() < info){
+            if(raiz.getProxDir().getInfo() == info){
+                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
+                    raiz.setProxDir(null);
+                    return;
+                }
+            }else{
+                remover(raiz.getProxDir(), info);
+            }
+        }
+
     }
 
     public No buscar(int info){

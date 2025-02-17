@@ -52,11 +52,24 @@ public class lista {
     }
     public void remover(int info){
         if(raiz.getInfo() == info){
-            return;
+            if(raiz.getProxDir() != null && raiz.getProxEsq() == null){
+                this.raiz = raiz.getProxDir();
+                return;
+            }
+            if(raiz.getProxDir() == null && raiz.getProxEsq() != null){
+                this.raiz = raiz.getProxEsq();
+                return;
+            }
+            else{
+                remover(raiz.getProxDir(),info);
+                return;
+            }
+
+            
         }
 
         if(raiz.getInfo() > info){
-            remover(raiz.getProxEsq(), info);
+            remover(raiz.getProxDir(), info);
             return;
         }
         remover(raiz.getProxDir(), info);
@@ -64,9 +77,7 @@ public class lista {
     }
 
     private void remover(No raiz, int info){
-        if(raiz.getInfo() == info){
-            return;
-        }
+        
         if(raiz.getInfo() > info){
             if(raiz.getProxEsq().getInfo() == info){
                 if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
@@ -87,7 +98,6 @@ public class lista {
                 remover(raiz.getProxDir(), info);
             }
         }
-
     }
 
     public No buscar(int info){
@@ -122,42 +132,102 @@ public class lista {
         }
         return maximo(raiz.getProxDir());
     }
+    
+    public No minimo(){
+        return minimo(raiz);
+    }
 
-    public void sucessor(int info){
+    private No minimo(No raiz){
+        if(raiz.getProxEsq() == null){
+            return raiz;
+        }
+        return minimo(raiz.getProxEsq());
+    }
+
+    public No sucessor(int info){
         No numeroB = buscar(info);
-       
+
+        if(numeroB == maximo()){
+            System.out.println("nó nao tem sucessor!");
+            return null;
+        }
+        if(numeroB == minimo()){
+            sucessor(raiz.getProxEsq(), info);
+            if(raiz.getProxEsq() == minimo()){
+                System.out.println("sucessor: " + raiz.getInfo());
+                return raiz;
+            }
+        }
         if(numeroB == null) {
             System.out.println("nó não existe");
-            return;
+            return null;
         }
         if(numeroB == maximo(raiz.getProxEsq())){
             System.out.println("sucessor: " + raiz.getInfo());
-            return;
+            return raiz;
         }
         if(numeroB.getProxDir() == null){
             if(numeroB.getInfo() < raiz.getInfo()){
                 sucessor(raiz.getProxEsq(), info);
-                return;
+                return null;
             }
             sucessor(raiz.getProxDir(), info);
-            return;
+            return null;
         }
+            System.out.println("sucessor: " + minimo(numeroB.getProxDir()).getInfo());
+            return minimo(numeroB.getProxDir());
+        
     }
 
-    private void sucessor(No raiz, int info){
+    private No sucessor(No raiz, int info){
         No numeroB = buscar(info);
         if(raiz.getProxEsq() == numeroB){
             System.out.println("sucessor sem proximo: " + raiz.getInfo());
-            return;
+            return raiz;
         }
         if(raiz.getProxEsq() == null){
             System.out.println("sucessor: " + raiz.getInfo());
-            return;
+            return raiz;
         }
-        
         sucessor(raiz.getProxEsq(), info);
-        return;
+        return raiz;
     }
+
+    // public void sucessor(int info) {
+
+    //     No buscado = buscar(info);
+    //     // if(buscado.getInfo() == maximo().getInfo()){
+    //     //     System.out.println("nao existe sucessor para esse no");
+    //     // }
+    //     if (buscado == null) {
+    //         System.out.println("nó não encontrado");
+    //         return;
+    //     } 
+    //     if (buscado.getInfo() == this.raiz.getInfo()) {
+    //         System.out.println("sucessor: " + this.raiz.getProxDir().getInfo());
+    //         return;
+    //     }
+    //     if (buscado == this.maximo(this.raiz.getProxEsq())) {
+    //         System.out.println("sucessor: " + this.raiz.getInfo());
+    //         return;
+    //     }
+    //     if (buscado.getProxDir() == null) {
+            
+    //         if (buscado.getInfo() > this.raiz.getInfo()) {
+    //             sucessor(this.raiz.getProxDir(), info);
+    //             return;
+    //         }
+    //         sucessor(this.raiz.getProxEsq(), info);
+    //     }
+    // }
+
+    // private void sucessor(No atual, int info) {
+    //     No buscado = buscar(info);
+    //     if (atual.getProxEsq() == buscado) {
+    //         System.out.println("sucessor: " + atual.getInfo());
+    //         return;
+    //     }
+    // }
 
     public void PreOrdem(){
         if(raiz == null){

@@ -65,27 +65,92 @@ public class lista {
                 return;
             }
 
-            
         }
 
-        if(raiz.getInfo() > info){
-            remover(raiz.getProxDir(), info);
-            return;
-        }
-        remover(raiz.getProxDir(), info);
-        return;
-    }
-
-    private void remover(No raiz, int info){
-        
         if(raiz.getInfo() > info){
             if(raiz.getProxEsq().getInfo() == info){
+                System.out.println("chegou");
                 if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
                     raiz.setProxEsq(null);
                     return;
                 }
+                if(raiz.getProxEsq().getProxEsq() == null && raiz.getProxEsq().getProxDir() != null){
+                    raiz.setProxEsq(raiz.getProxEsq().getProxDir());
+                    return;
+                }if(raiz.getProxEsq().getProxEsq() != null && raiz.getProxEsq().getProxDir() == null){
+                    raiz.setProxEsq(raiz.getProxEsq().getProxEsq());
+                    return;
+                }else{
+                    remover(raiz.getProxEsq(), info);
+                    return;
+                }
+            }
+        }
+        if(raiz.getInfo() < info){
+            if(raiz.getProxDir().getInfo() == info){
+                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
+                    raiz.setProxDir(null);
+                    return;
+                }if(raiz.getProxDir().getProxEsq() == null && raiz.getProxDir().getProxDir() != null){
+                    raiz.setProxDir(raiz.getProxDir().getProxDir());
+                    return;
+                }if(raiz.getProxDir().getProxEsq() != null && raiz.getProxDir().getProxDir() == null){
+                    raiz.setProxDir(raiz.getProxDir().getProxEsq());
+                    return;
+                }else{
+                    remover(raiz.getProxDir(), info);
+                    return;
+                }
+            }else{
+                remover(raiz.getProxDir(), info);
+            }
+        }
+        remover(raiz.getProxEsq(), info);
+
+    }
+
+    private void remover(No raiz, int info){
+
+        if(raiz.getInfo() > info){
+            if(raiz.getProxEsq().getInfo() == info){
+                System.out.println("chegou");
+                if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
+                    raiz.setProxEsq(null);
+                    return;
+                }
+                if(raiz.getProxEsq().getProxEsq() == null && raiz.getProxEsq().getProxDir() != null){
+                    raiz.setProxEsq(raiz.getProxEsq().getProxDir());
+                    return;
+                }if(raiz.getProxEsq().getProxEsq() != null && raiz.getProxEsq().getProxDir() == null){
+                    raiz.setProxEsq(raiz.getProxEsq().getProxEsq());
+                    return;
+                }else{
+                    remover(raiz.getProxEsq(), info);
+                    return;
+                }
             }else{
                 remover(raiz.getProxEsq(), info);
+            }
+            
+        }
+
+        if(raiz.getInfo() < info){
+            if(raiz.getProxDir().getInfo() == info){
+                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
+                    raiz.setProxDir(null);
+                    return;
+                }if(raiz.getProxDir().getProxEsq() == null && raiz.getProxDir().getProxDir() != null){
+                    raiz.setProxDir(raiz.getProxDir().getProxDir());
+                    return;
+                }if(raiz.getProxDir().getProxEsq() != null && raiz.getProxDir().getProxDir() == null){
+                    raiz.setProxDir(raiz.getProxDir().getProxEsq());
+                    return;
+                }else{
+                    remover(raiz.getProxDir(), info);
+                    return;
+                }
+            }else{
+                remover(raiz.getProxDir(), info);
             }
         }
         if(raiz.getInfo() < info){

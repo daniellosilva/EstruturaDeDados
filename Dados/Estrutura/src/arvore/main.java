@@ -15,7 +15,13 @@ public class main {
         l1.EmOrdem();
         l1.sucessor(10);
         l1.insere(13);
-        l1.remover(12);
+        l1.EmOrdem();
+        l1.insere(14);
+
+        l1.remover(15);
+        l1.remover(10);
+    
+
         l1.EmOrdem();
         //if(l1.buscar(5) == null) {
         //    System.out.println("nó não existe");

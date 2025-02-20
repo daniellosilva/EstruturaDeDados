@@ -4,8 +4,8 @@ public class lista {
 
     private No raiz;
 
-    public lista() {
-        this.raiz = null;
+    public lista(int info) {
+        this.raiz = new No(info);
     }
 
     public No getRaiz() {
@@ -51,120 +51,138 @@ public class lista {
         }
     }
     public void remover(int info){
-        if(raiz.getInfo() == info){
-            if(raiz.getProxDir() != null && raiz.getProxEsq() == null){
-                this.raiz = raiz.getProxDir();
-                return;
-            }
-            if(raiz.getProxDir() == null && raiz.getProxEsq() != null){
-                this.raiz = raiz.getProxEsq();
-                return;
-            }
-            else{
-                remover(raiz.getProxDir(),info);
-                return;
-            }
-
-        }
-
-        if(raiz.getInfo() > info){
-            if(raiz.getProxEsq().getInfo() == info){
-                System.out.println("chegou");
-                if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
-                    raiz.setProxEsq(null);
-                    return;
-                }
-                if(raiz.getProxEsq().getProxEsq() == null && raiz.getProxEsq().getProxDir() != null){
-                    raiz.setProxEsq(raiz.getProxEsq().getProxDir());
-                    return;
-                }if(raiz.getProxEsq().getProxEsq() != null && raiz.getProxEsq().getProxDir() == null){
-                    raiz.setProxEsq(raiz.getProxEsq().getProxEsq());
-                    return;
-                }else{
-                    remover(raiz.getProxEsq(), info);
-                    return;
-                }
-            }
-        }
-        if(raiz.getInfo() < info){
-            if(raiz.getProxDir().getInfo() == info){
-                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
-                    raiz.setProxDir(null);
-                    return;
-                }if(raiz.getProxDir().getProxEsq() == null && raiz.getProxDir().getProxDir() != null){
-                    raiz.setProxDir(raiz.getProxDir().getProxDir());
-                    return;
-                }if(raiz.getProxDir().getProxEsq() != null && raiz.getProxDir().getProxDir() == null){
-                    raiz.setProxDir(raiz.getProxDir().getProxEsq());
-                    return;
-                }else{
-                    remover(raiz.getProxDir(), info);
-                    return;
-                }
-            }else{
-                remover(raiz.getProxDir(), info);
-            }
-        }
-        remover(raiz.getProxEsq(), info);
-
+        raiz = remover(raiz, info);
     }
 
-    private void remover(No raiz, int info){
+    private No remover(No raiz, int info){
+        if(raiz == null) return null;
 
-        if(raiz.getInfo() > info){
-            if(raiz.getProxEsq().getInfo() == info){
-                System.out.println("chegou");
-                if(raiz.getProxEsq().getProxDir() == null && raiz.getProxEsq().getProxEsq() == null){
-                    raiz.setProxEsq(null);
-                    return;
-                }
-                if(raiz.getProxEsq().getProxEsq() == null && raiz.getProxEsq().getProxDir() != null){
-                    raiz.setProxEsq(raiz.getProxEsq().getProxDir());
-                    return;
-                }if(raiz.getProxEsq().getProxEsq() != null && raiz.getProxEsq().getProxDir() == null){
-                    raiz.setProxEsq(raiz.getProxEsq().getProxEsq());
-                    return;
-                }else{
-                    remover(raiz.getProxEsq(), info);
-                    return;
-                }
-            }else{
-                remover(raiz.getProxEsq(), info);
+        if(info < raiz.getInfo()){
+            raiz.setProxEsq(remover(raiz.getProxEsq(), info));
+        } else if(info > raiz.getInfo()){
+            raiz.setProxDir(remover(raiz.getProxDir(), info));
+        } else { 
+            if(raiz.getProxEsq() == null && raiz.getProxDir() == null){
+                return null;
             }
-            
-        }
 
-        if(raiz.getInfo() < info){
-            if(raiz.getProxDir().getInfo() == info){
-                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
-                    raiz.setProxDir(null);
-                    return;
-                }if(raiz.getProxDir().getProxEsq() == null && raiz.getProxDir().getProxDir() != null){
-                    raiz.setProxDir(raiz.getProxDir().getProxDir());
-                    return;
-                }if(raiz.getProxDir().getProxEsq() != null && raiz.getProxDir().getProxDir() == null){
-                    raiz.setProxDir(raiz.getProxDir().getProxEsq());
-                    return;
-                }else{
-                    remover(raiz.getProxDir(), info);
-                    return;
-                }
-            }else{
-                remover(raiz.getProxDir(), info);
+            // Caso 2: Nó com um filho
+            if(raiz.getProxEsq() == null){
+                return raiz.getProxDir();
             }
-        }
-        if(raiz.getInfo() < info){
-            if(raiz.getProxDir().getInfo() == info){
-                if(raiz.getProxDir().getProxDir() == null && raiz.getProxDir().getProxEsq() == null){
-                    raiz.setProxDir(null);
-                    return;
-                }
-            }else{
-                remover(raiz.getProxDir(), info);
+            if(raiz.getProxDir() == null){
+                return raiz.getProxEsq();
             }
+
+            // Caso 3: Nó com dois filhos
+            No sucessor = minimo(raiz.getProxDir());
+            raiz.setInfo(sucessor.getInfo());
+            raiz.setProxDir(remover(raiz.getProxDir(), sucessor.getInfo()));
         }
+        return raiz;
+    }
+    public int altura(){
+        return altura(raiz);
     }
 
+    private No insere(No raiz, int info) {
+        // Inserção padrão da árvore binária de busca
+        if (raiz == null) {
+            return new No(info);
+        }
+        if (info < raiz.getInfo()) {
+            raiz.setProxEsq(insere(raiz.getProxEsq(), info));
+        } else if (info > raiz.getInfo()) {
+            raiz.setProxDir(insere(raiz.getProxDir(), info));
+        } else {
+            return raiz; // Não permite duplicatas
+        }
+
+        // Atualiza a altura do nó
+        raiz.setAltura(1 + maior(altura(raiz.getProxEsq()), altura(raiz.getProxDir())));
+
+        // Calcula o fator de balanceamento
+        int balance = fatorBalanceamento(raiz);
+
+        // Rotação simples à direita (LL)
+        if (balance > 1 && info < raiz.getProxEsq().getInfo()) {
+            return rotacaoDireita(raiz);
+        }
+
+        // Rotação simples à esquerda (RR)
+        if (balance < -1 && info > raiz.getProxDir().getInfo()) {
+            return rotacaoEsquerda(raiz);
+        }
+
+        // Rotação dupla à esquerda-direita (LR)
+        if (balance > 1 && info > raiz.getProxEsq().getInfo()) {
+            raiz.setProxEsq(rotacaoEsquerda(raiz.getProxEsq()));
+            return rotacaoDireita(raiz);
+        }
+
+        // Rotação dupla à direita-esquerda (RL)
+        if (balance < -1 && info < raiz.getProxDir().getInfo()) {
+            raiz.setProxDir(rotacaoDireita(raiz.getProxDir()));
+            return rotacaoEsquerda(raiz);
+        }
+
+        return raiz;
+    }
+
+    // Rotação simples à direita (LL)
+    private No rotacaoDireita(No y) {
+        No x = y.getProxEsq();
+        No T2 = x.getProxDir();
+
+        x.setProxDir(y);
+        y.setProxEsq(T2);
+
+        // Atualiza alturas
+        y.setAltura(1 + maior(altura(y.getProxEsq()), altura(y.getProxDir())));
+        x.setAltura(1 + maior(altura(x.getProxEsq()), altura(x.getProxDir())));
+
+        return x;
+    }
+
+    // Rotação simples à esquerda (RR)
+    private No rotacaoEsquerda(No x) {
+        No y = x.getProxDir();
+        No T2 = y.getProxEsq();
+
+        y.setProxEsq(x);
+        x.setProxDir(T2);
+
+        // Atualiza alturas
+        x.setAltura(1 + maior(altura(x.getProxEsq()), altura(x.getProxDir())));
+        y.setAltura(1 + maior(altura(y.getProxEsq()), altura(y.getProxDir())));
+
+        return y;
+    }
+
+    private int maior(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    private int altura(No raiz) {
+        if (raiz == null) {
+            return -1;
+        }
+        
+        int alturaEsq = altura(raiz.getProxEsq());
+        int alturaDir = altura(raiz.getProxDir());
+
+        return 1 + (alturaEsq > alturaDir ? alturaEsq : alturaDir);
+    }
+    
+    public int fatorBalanceamento(No raiz) {
+        
+        if (raiz == null) {
+            return 0;
+        }
+        
+        return altura(raiz.getProxEsq()) - altura(raiz.getProxDir());
+    }
+    
     public No buscar(int info){
         if(raiz == null){
             return null;
@@ -299,6 +317,7 @@ public class lista {
             System.out.println("arvore vazia");  
         }
         PreOrdem(raiz);
+        System.out.println("==============================");
     }
 
     private void PreOrdem(No raiz){
@@ -308,11 +327,13 @@ public class lista {
         System.out.print(raiz.getInfo() + " ");
         PreOrdem(raiz.getProxEsq());
         PreOrdem(raiz.getProxDir());
+        
         return;
     }
 
     public void EmOrdem(){
         EmOrdem(raiz);
+        System.out.println("=================================");
     }
 
     private void EmOrdem(No raiz){

@@ -4,11 +4,13 @@ public class No {
     private No proxDir;
     private No proxEsq;
     private int info;
+    private int altura;
 
     public No() {
         this.proxDir = null;
         this.proxEsq = null;
         this.info = info;
+        this.altura = 1;
     }
 
     public No(int info) {
@@ -33,5 +35,11 @@ public class No {
     }
     public void setInfo(int info) {
         this.info = info;
+    }
+    public int getAltura() {
+        return altura;
+    }
+    public void setAltura(int altura) {
+        this.altura = altura;
     }
 }

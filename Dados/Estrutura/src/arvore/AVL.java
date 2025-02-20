@@ -21,7 +21,7 @@ public class AVL {
     }
 
     public void insere(int info) {
-        this.raiz = insere(this.raiz, info); // Atualiza a raiz após inserção
+        this.raiz = insere(this.raiz, info); 
     }
 
     private No insere(No raiz, int info) {
@@ -29,38 +29,31 @@ public class AVL {
             return new No(info);
         }
 
-        // Inserção normal de árvore binária de busca
         if (info < raiz.getInfo()) {
             raiz.setProxEsq(insere(raiz.getProxEsq(), info));
         } else if (info > raiz.getInfo()) {
             raiz.setProxDir(insere(raiz.getProxDir(), info));
         } else {
-            return raiz; // Valores duplicados não são permitidos
+            return raiz; 
         }
 
-        // Atualiza a altura do nó
         raiz.setAltura(1 + maior(altura(raiz.getProxEsq()), altura(raiz.getProxDir())));
 
-        // Calcula o fator de balanceamento
         int balance = fatorBalanceamento(raiz);
 
-        // Rotação simples à direita (LL)
         if (balance > 1 && info < raiz.getProxEsq().getInfo()) {
             return rotacaoDireita(raiz);
         }
 
-        // Rotação simples à esquerda (RR)
         if (balance < -1 && info > raiz.getProxDir().getInfo()) {
             return rotacaoEsquerda(raiz);
         }
 
-        // Rotação dupla à esquerda-direita (LR)
         if (balance > 1 && info > raiz.getProxEsq().getInfo()) {
             raiz.setProxEsq(rotacaoEsquerda(raiz.getProxEsq()));
             return rotacaoDireita(raiz);
         }
 
-        // Rotação dupla à direita-esquerda (RL)
         if (balance < -1 && info < raiz.getProxDir().getInfo()) {
             raiz.setProxDir(rotacaoDireita(raiz.getProxDir()));
             return rotacaoEsquerda(raiz);
@@ -84,7 +77,6 @@ public class AVL {
                 return null;
             }
 
-            // Caso 2: Nó com um filho
             if(raiz.getProxEsq() == null){
                 return raiz.getProxDir();
             }
@@ -92,7 +84,6 @@ public class AVL {
                 return raiz.getProxEsq();
             }
 
-            // Caso 3: Nó com dois filhos
             No sucessor = minimo(raiz.getProxDir());
             raiz.setInfo(sucessor.getInfo());
             raiz.setProxDir(remove(raiz.getProxDir(), sucessor.getInfo()));
@@ -103,7 +94,6 @@ public class AVL {
         return altura(raiz);
     }
 
-    // Rotação simples à direita (LL)
     private No rotacaoDireita(No y) {
         No x = y.getProxEsq();
         No T2 = x.getProxDir();
@@ -118,7 +108,6 @@ public class AVL {
         return x;
     }
 
-    // Rotação simples à esquerda (RR)
     private No rotacaoEsquerda(No x) {
         No y = x.getProxDir();
         No T2 = y.getProxEsq();
@@ -126,7 +115,6 @@ public class AVL {
         y.setProxEsq(x);
         x.setProxDir(T2);
 
-        // Atualiza alturas
         x.setAltura(1 + maior(altura(x.getProxEsq()), altura(x.getProxDir())));
         y.setAltura(1 + maior(altura(y.getProxEsq()), altura(y.getProxDir())));
 

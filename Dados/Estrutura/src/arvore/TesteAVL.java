@@ -85,7 +85,6 @@ public class TesteAVL {
         AVL avl = new AVL(5);
         avl.insere(7);
         avl.insere(9);
-
         assertEquals("7(0)5(0)9(0)", avl.preOrdem().replace(" ", "").replace(",", ""));
     }
 
@@ -95,8 +94,6 @@ public class TesteAVL {
         AVL avl = new AVL(10);
         avl.insere(5);
         avl.insere(7);
-
-
         assertEquals("7(0)5(0)10(0)", avl.preOrdem().replace(" ", "").replace(",", ""));
     }
 
@@ -126,7 +123,6 @@ public class TesteAVL {
         avl.insere(20);
         avl.insere(30);
         avl.remove(10);
-
         assertEquals("20(-1)30(0)", avl.preOrdem().replace(" ", "").replace(",", ""));
     }
 

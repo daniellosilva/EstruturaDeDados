@@ -1,4 +1,4 @@
-package arvore;
+package avl;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.*;

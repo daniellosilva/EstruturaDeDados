@@ -1,4 +1,4 @@
-package arvore;
+package avl;
 
 public class AVL {
 
@@ -61,6 +61,7 @@ public class AVL {
 
         return raiz;
     }
+    
     public void remove(int info){
         raiz = remove(raiz, info);
     }
@@ -101,7 +102,6 @@ public class AVL {
         x.setProxDir(y);
         y.setProxEsq(T2);
 
-        // Atualiza alturas
         y.setAltura(1 + maior(altura(y.getProxEsq()), altura(y.getProxDir())));
         x.setAltura(1 + maior(altura(x.getProxEsq()), altura(x.getProxDir())));
 
